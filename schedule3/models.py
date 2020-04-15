@@ -1,5 +1,6 @@
 from django.db import models
 import weekday_field
+from django.utils.text import slugify
 
 # Create your models here.
 SUBJECT_TYPE = (
@@ -45,6 +46,11 @@ DAYS_OF_WEEK = (
 
 class TimeTable(models.Model):
     group = models.ForeignKey(Groups, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, default='')
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.group.title)
+        super(TimeTable, self).save(*args, **kwargs)
 
     def __str__(self):
         return 'Timetable for:' + self.group.title
@@ -57,9 +63,11 @@ class Event(models.Model):
     subject = models.OneToOneField(Subjects, on_delete=models.CASCADE, null=True)
     # period =
     room = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    room_number = models.IntegerField(default=0)
     type = models.CharField(max_length=20, choices=SUBJECT_TYPE, null=True)
     teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, null=True)
     time_table = models.ForeignKey(TimeTable, on_delete=models.CASCADE, null=True)
+    modal_page = models.CharField(max_length=200, default='')
 
     def __str__(self):
         return 'Event for:' + self.time_table.group.title + 'for:' + str(self.start.hour) \
