@@ -1,0 +1,107 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'schedule3/css/student_page.css' %}">
+    <script src="https://kit.fontawesome.com/d046af985e.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    {#    <script src="{% static 'schedule3/js/bootstrap-autocomplete.min.js' %}"></script>#}
+    <title>Schedule v3.0</title>
+</head>
+<body>
+<div class="loader-wrapper" id="preloader">
+    <img src="{% static 'schedule3/img/logo11.png' %}" class="image" id="preloader">
+</div>
+<img class="logo" src="{% static 'schedule3/img/iitu_logo_small.png' %}">
+<div class="wrap">
+    <form method="post" id="form">
+        {% csrf_token %}
+
+        <div class="search">
+            {% for fields in form %}
+                {{ fields }}
+            {% endfor %}
+            <button type="button" class="searchButton" id="button">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+
+    </form>
+</div>
+<div id="schedule" class="schedule">
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    setTimeout(function () {
+        $('#preloader').fadeOut();
+        $('.preloader_img').delay(150).fadeOut('slow');
+    }, 1000);
+
+    function checkEnter(e) {
+        e = e || event;
+        var txtArea = /textarea/i.test((e.target || e.srcElement).tagName);
+        return txtArea || (e.keyCode || e.which || e.charCode || 0) !== 13;
+    }
+
+    document.querySelector('form').onkeypress = checkEnter;
+</script>
+
+{% block script %}
+    <script src="https://cdn.rawgit.com/xcash/bootstrap-autocomplete/3de7ad37/dist/latest/bootstrap-autocomplete.js"></script>
+    <script>
+        $('.basicAutoComplete').autoComplete(
+            {minLength: 2}
+        );
+    </script>
+{% endblock %}
+<style>
+    .dropdown-menu {
+        top: 36px;
+        left: 0px;
+        width: 215.188px;
+        position: absolute;
+        background-color: #f9f9f9;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        padding: 12px 16px;
+    }
+</style>
+<script>
+     $("#button").click(function () {
+            $(".dropdown-menu").hide();
+        });
+     $("id_search_string").click(function () {
+            $(".dropdown-menu").show();
+        });
+
+</script>
+
+<script>
+    $("#id_search_string").mouseout(function () {
+        var search_string = $(this).val();
+        var bubek = $(this).val().toLowerCase();
+
+        $.ajax({
+            url: 'ajax/validate_username',
+            data: {
+                'search_string': search_string
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_group) {
+                    $("#schedule").load(bubek);
+                }
+                if (data.is_teacher) {
+                    $("#schedule").load('teacher/' + data.teacher_id);
+                }
+            }
+        });
+
+    });
+</script>
+
+
+</body>
+</html>
