@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Schedule v3.0</title>
+    <link rel="stylesheet" href="{% static 'schedule3/css/main.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Muli:900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+</head>
+<body>
+<div id="wrapper">
+    <div class="content">
+        <div class="form">
+{#            <a href="#"><p><span class="bg"></span><span class="base"></span><span class="text">Play Valorant</span></p></a>#}
+            <a class="white" href="#"><p><span class="bg"></span><span class="base"></span><span class="text">Я учитель</span></p></a>
+            <a class="transparent" href={% url 'student_main_page' %}><p><span class="bg"></span><span class="base"></span><span class="text">Я студент</span></p></a></div>
+    </div>
+<!-- partial:index.partial.html -->
+<!-- Hello World in 92 Languages falling down in Matrix code rain-->
+<div id="background" class="background">
+
+</div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.min.js'></script>
+<script src="{% static 'schedule3/js/script.js' %}"></script>
+
+</body>
+</html>

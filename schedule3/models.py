@@ -12,6 +12,7 @@ SUBJECT_TYPE = (
 
 class Subjects(models.Model):
     title = models.CharField(max_length=200)
+    color = models.CharField(max_length=200, default='')
 
     def __str__(self):
         return self.title
@@ -60,14 +61,14 @@ class Event(models.Model):
     day = models.CharField(max_length=1, choices=DAYS_OF_WEEK)
     start = models.DateTimeField(null=True, blank=True)
     end = models.DateTimeField(null=True, blank=True)
-    subject = models.OneToOneField(Subjects, on_delete=models.CASCADE, null=True)
-    # period =
-    room = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    subject = models.ForeignKey(Subjects, on_delete=models.CASCADE, null=True)
     room_number = models.IntegerField(default=0)
     type = models.CharField(max_length=20, choices=SUBJECT_TYPE, null=True)
-    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE, null=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
     time_table = models.ForeignKey(TimeTable, on_delete=models.CASCADE, null=True)
-    modal_page = models.CharField(max_length=200, default='')
+    # modal_page = models.CharField(max_length=200, default='',unique=True)
+
+    # bg_color = models.CharField(max_length=200, default='')
 
     def __str__(self):
         return 'Event for:' + self.time_table.group.title + 'for:' + str(self.start.hour) \

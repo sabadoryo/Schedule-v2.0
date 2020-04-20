@@ -299,6 +299,7 @@ a {
 .cd-schedule-modal[data-event="event-1"] .cd-schedule-modal__header-bg {
 	// this is used to set a background color for the event and the modal window
 	background: var(--cd-color-event-1);
+
 }
 
 .cd-schedule__event [data-event="event-2"],
@@ -308,12 +309,18 @@ a {
 
 .cd-schedule__event [data-event="event-3"],
 .cd-schedule-modal[data-event="event-3"] .cd-schedule-modal__header-bg {
-	background: var(--cd-color-event-3);
+	//background: var(--cd-color-event-3);
+    background: hsla(162, 14%, 68%, 0.75);
 }
 
 .cd-schedule__event [data-event="event-4"],
 .cd-schedule-modal[data-event="event-4"] .cd-schedule-modal__header-bg {
 	background: var(--cd-color-event-4);
+}
+
+.cd-schedule__event [data-event = "event-5"],
+.cd-schedule-modal[data-event = "event-5"].cd-schedule-modal__header-bg{
+  background: hsl(355,90%,81%);
 }
 
 .cd-schedule-modal {
