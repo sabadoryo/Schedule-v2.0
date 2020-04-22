@@ -67,6 +67,7 @@ class Event(models.Model):
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, null=True)
     time_table = models.ForeignKey(TimeTable, on_delete=models.CASCADE, null=True)
     # modal_page = models.CharField(max_length=200, default='',unique=True)
+    message = models.CharField(max_length=1000, default='Waiting for everyone!')
 
     # bg_color = models.CharField(max_length=200, default='')
 

@@ -58,7 +58,7 @@
           <div class="cd-schedule__top-info"><span>Monday</span></div>
           <ul>
 
-              {% for events in object.event_set.all%}
+              {% for events in eventss%}
                   {% if events.day == '0' %}
                   <li class="cd-schedule__event">
               <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0" data-end="{{ events.end.hour }}:{{ events.end.minute }}0" data-content="{{ events.pk }}" data-event={{ events.subject.color }} href="#0">

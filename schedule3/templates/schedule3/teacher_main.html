@@ -1,10 +1,223 @@
-<!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
+    <link rel="stylesheet" href="{% static 'schedule3/css/style.css' %}">
+    <title>Schedule Template | CodyHouse</title>
 </head>
 <body>
+<header class="cd-main-header text-center flex flex-column flex-center">
 
+    <h1 class="text-xl">Приветствуем, {{ user.first_name }} {{ user.last_name }}</h1>
+    <p>Ниже приведен ваш timetable</p>
+    <p>0 - Lecture, 1-Practice, 3-Lab</p>
+    {% for events in eventss.event_set.all %}
+        <a href="{% url 'event_update_page' events.pk %}"> {{ events.time_table.group.title }} : {{ events.type }}</a>
+    {% endfor %}
+    <a></a>
+</header>
+
+<div class="cd-schedule cd-schedule--loading margin-top-lg margin-bottom-lg js-cd-schedule">
+    <div class="cd-schedule__timeline">
+        <ul>
+            <li><span>08:00</span></li>
+            <li><span>08:30</span></li>
+            <li><span>09:00</span></li>
+            <li><span>09:30</span></li>
+            <li><span>10:00</span></li>
+            <li><span>10:30</span></li>
+            <li><span>11:00</span></li>
+            <li><span>11:30</span></li>
+            <li><span>12:00</span></li>
+            <li><span>12:30</span></li>
+            <li><span>13:00</span></li>
+            <li><span>13:30</span></li>
+            <li><span>14:00</span></li>
+            <li><span>14:30</span></li>
+            <li><span>15:00</span></li>
+            <li><span>15:30</span></li>
+            <li><span>16:00</span></li>
+            <li><span>16:30</span></li>
+            <li><span>17:00</span></li>
+        </ul>
+    </div> <!-- .cd-schedule__timeline -->
+    <style>
+        .cd-schedule__event [data-event="event-5"], .cd-schedule-modal[data-event="event-5"] .cd-schedule-modal__header-bg {
+            background: hsl(31, 89%, 68%);
+            background: hsl(355, 90%, 61%, 0.7);
+        }
+
+        .cd-schedule__event [data-event="event-6"], .cd-schedule-modal[data-event="event-6"] .cd-schedule-modal__header-bg {
+            background: hsl(31, 89%, 68%);
+            background: hsl(355, 90%, 61%, 0.7);
+        }
+
+        .cd-schedule__event [data-event="event-7"], .cd-schedule-modal[data-event="event-7"] .cd-schedule-modal__header-bg {
+            background: hsl(31, 89%, 68%);
+            background: hsl(240, 1%, 48%, 0.7);
+        }
+    </style>
+    <div class="cd-schedule__events">
+        <ul>
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Monday</span></div>
+                <ul>
+
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '0' %}
+                            <li class="cd-schedule__event">
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0" href="#">
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+                </ul>
+            </li>
+
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Tuesday</span></div>
+
+                <ul>
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '1' %}
+                            <li class="cd-schedule__event">
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0"
+                                   data-content="{{ events.pk }}" data-event={{ events.subject.color }} href="#0">
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Wednesday</span></div>
+
+                <ul>
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '2' %}
+                            <li class="cd-schedule__event">
+
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0"
+                                   data-event={{ events.subject.color }}>
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Thursday</span></div>
+
+                <ul>
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '3' %}
+                            <li class="cd-schedule__event">
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0"
+                                   data-content="{{ events.pk }}" data-event={{ events.subject.color }} href="#0">
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Friday</span></div>
+
+                <ul>
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '4' %}
+                            <li class="cd-schedule__event">
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0"
+                                   data-content="{{ events.pk }}" data-event={{ events.subject.color }}  href="#0">
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+            <li class="cd-schedule__group">
+                <div class="cd-schedule__top-info"><span>Saturday</span></div>
+
+                <ul>
+                    {% for events in eventss.event_set.all %}
+                        {% if events.day == '5' %}
+                            <li class="cd-schedule__event">
+                                <a data-start="{{ events.start.hour }} : {{ events.start.minute }}0"
+                                   data-end="{{ events.end.hour }}:{{ events.end.minute }}0"
+                                   data-content="{{ events.pk }}" data-event={{ events.subject.color }} href="#0">
+                                    <em class="cd-schedule__name">{{ events.time_table.group.title }}
+                                        : {{ events.type }}</em>
+                                    <em class="cd-schedule__group" style="color:white">{{ events.room_number }}</em>
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+
+    <div class="cd-schedule-modal">
+        <header class="cd-schedule-modal__header">
+            <div class="cd-schedule-modal__content">
+                <span class="cd-schedule-modal__date"></span>
+                <h3 class="cd-schedule-modal__name"></h3>
+            </div>
+
+            <div class="cd-schedule-modal__header-bg"></div>
+        </header>
+
+        <div class="cd-schedule-modal__body">
+            <div class="cd-schedule-modal__event-info"></div>
+            <div class="cd-schedule-modal__body-bg"></div>
+        </div>
+
+        <a href="#0" class="cd-schedule-modal__close text-replace">Close</a>
+    </div>
+
+    <div class="cd-schedule__cover-layer"></div>
+</div> <!-- .cd-schedule -->
+<style>
+    .searchTerm {
+        width: 100%;
+        border: 3px solid #00B4CC;
+        border-right: none;
+        padding: 5px;
+        height: 35px;
+        border-radius: 5px 0 0 5px;
+        outline: none;
+        color: black;
+    }
+</style>
+
+<script src="{% static 'schedule3/js/util.js' %}"></script> <!-- util functions included in the CodyHouse framework -->
+<script src="{% static 'schedule3/js/main.js' %}"></script>
 </body>
 </html>

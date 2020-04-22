@@ -1,7 +1,8 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from django.views.generic import TemplateView, DetailView, FormView
+from django.views.generic import TemplateView, DetailView, FormView, ListView, UpdateView
 from itertools import chain
 from schedule3.models import TimeTable, Event, Teacher, Groups
 from schedule3.forms import *
@@ -84,3 +85,21 @@ class GroupTimeTableView(DetailView):
 class TeacherTimeTableView(DetailView):
     model = Teacher
     template_name = 'schedule3/index_teacher.html'
+
+
+class TeacherMainPage(ListView):
+    template_name = 'schedule3/teacher_main.html'
+    model = Teacher
+
+    def get_context_data(self, **kwargs):
+        context = super(TeacherMainPage, self).get_context_data(**kwargs)
+        user = self.request.user
+        context['eventss'] = Teacher.objects.get(email=user.username)
+        print(context)
+        return context
+
+
+class EventUpdate(UpdateView):
+    model = Event
+    fields = ['message']
+    template_name_suffix = '_update_form'
