@@ -20,6 +20,7 @@ class Subjects(models.Model):
 
 class Groups(models.Model):
     title = models.CharField(max_length=20)
+    course = models.CharField(max_length=10, default=None, null=True)
 
     def __str__(self):
         return self.title

@@ -10,6 +10,7 @@ urlpatterns = [
     path('teacher/<int:pk>', TeacherTimeTableView.as_view(), name='teacher_timetable'),
     path('<str:str>', ModalContent.as_view(), name='modal-content'),
     path('ajax/validate_username', views.validate_username, name='validate_username'),
+    path('ajax/selectOptionsParameters', views.selectOptionsParameters, name='selectOptionsParameters'),
     path('ajax/search_autocomplete', views.search_autocomplete, name='search-autocomplete'),
     path('teacher/profile', views.TeacherMainPage.as_view(), name='teacher_main_page'),
     path('teacher/profile/update/<int:pk>', EventUpdate.as_view(), name='event_update_page'),
