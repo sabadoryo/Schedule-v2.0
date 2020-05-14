@@ -219,3 +219,9 @@ p a:hover {
 .selectSearch{
     padding-top: 12px;
 }
+
+.selects{
+    width : 187px;
+    height: 30px;
+    background-color: #ff0000b0;
+}

@@ -29,22 +29,22 @@
         </div>
     </form>
     <div class="selectSearch" id="selectSearch">
-        <select id="selectCourse" style="width : 187px; height: 30px">
+        <select id="selectCourse" class="selects">
             <option value="hide">Course</option>
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
         </select>
-        <select id="selectSpeciality" style="width : 187px; height: 30px">
+        <select id="selectSpeciality" class="selects" disabled>
             <option value="hide">Speciality</option>
             <option rel="icon-temperature">CSSE</option>
             <option rel="icon-temperature">IS</option>
             <option rel="icon-temperature">MCM</option>
         </select>
 
-        <select id="selectGroup" style="width : 187px; height: 30px">
-            <option value="hide" disabled>Group</option>
+        <select id="selectGroup" disabled class="selects">
+            <option value="hide">Group</option>
         </select>
 
     </div>
@@ -56,9 +56,14 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
+<script>
+      $("#selectCourse").change(function () {
+          document.getElementById("selectSpeciality").disabled = false;
+      });
+</script>
 <script>
     $("#selectSpeciality").change(function () {
+        document.getElementById("selectGroup").disabled = false;
         $('#selectGroup').empty();
         $.ajax({
             url: "ajax/selectOptionsParameters",
