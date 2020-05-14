@@ -10,7 +10,9 @@
 </head>
 <body>
 <div class="loader-wrapper" id="preloader">
-    <img src="{% static 'schedule3/img/logo11.png' %}" class="image" id="preloader">
+    <a href="{% url 'student_main_page' %}">
+        <img src="{% static 'schedule3/img/logo11.png' %}" class="image" id="preloader">
+    </a>
 </div>
 <img class="logo" src="{% static 'schedule3/img/iitu_logo_small.png' %}">
 <div class="wrap">
@@ -25,8 +27,27 @@
                 <i class="fa fa-search"></i>
             </button>
         </div>
-
     </form>
+    <div class="selectSearch" id="selectSearch">
+        <select id="selectCourse" class="selects">
+            <option value="hide">Course</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+        <select id="selectSpeciality" class="selects" disabled>
+            <option value="hide">Speciality</option>
+            <option rel="icon-temperature">CSSE</option>
+            <option rel="icon-temperature">IS</option>
+            <option rel="icon-temperature">MCM</option>
+        </select>
+
+        <select id="selectGroup" disabled class="selects">
+            <option value="hide">Group</option>
+        </select>
+
+    </div>
 </div>
 <div id="schedule" class="schedule">
 
@@ -34,6 +55,125 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script>
+      $("#selectCourse").change(function () {
+          document.getElementById("selectSpeciality").disabled = false;
+      });
+</script>
+<script>
+    $("#selectSpeciality").change(function () {
+        document.getElementById("selectGroup").disabled = false;
+        $('#selectGroup').empty();
+        $.ajax({
+            url: "ajax/selectOptionsParameters",
+            data:{
+                speciality:  $('#selectSpeciality option:selected').val(),
+                course : $('#selectCourse option:selected').val()
+            },
+            dataType: "json",
+            success: function (data) {
+                var makes = [];
+                for (var i in data) {
+                    car = data[i];
+                        $('#selectGroup').append($('<option>', {
+                            value: car.title,
+                            text: car.title
+                        }));
+                    }
+            }
+        });
+    })
+</script>
+
+
+<script>
+    $('#selectGroup').change(function () {
+        var search_string = $('#selectGroup option:selected').val().toLowerCase();
+        console.log(search_string);
+        var bubek = $('#selectGroup option:selected').val().toLowerCase();
+
+        $.ajax({
+            url: 'ajax/validate_username',
+            data: {
+                'search_string': search_string
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.is_group) {
+                    $("#schedule").load(bubek);
+                }
+                if (data.is_teacher) {
+                    $("#schedule").load('teacher/' + data.teacher_id);
+                }
+            }
+        });
+    });
+</script>
+
+
+<script>
+    $('#id_search_string').keyup(function () {
+
+        // If value is not empty
+        if ($(this).val().length == 0) {
+            // Hide the element
+            $('.selectSearch').show();
+        } else {
+            // Otherwise show it
+            $('.selectSearch').hide();
+        }
+    }).keyup();
+</script>
+
+{#<script>#}
+{#    $('select').each(function () {#}
+{#        var $this = $(this), numberOfOptions = $(this).children('option').length;#}
+{##}
+{#        $this.addClass('select-hidden');#}
+{#        $this.wrap('<div class="select"></div>');#}
+{#        $this.after('<div class="select-styled"></div>');#}
+{##}
+{#        var $styledSelect = $this.next('div.select-styled');#}
+{#        $styledSelect.text($this.children('option').eq(0).text());#}
+{##}
+{#        var $list = $('<ul />', {#}
+{#            'class': 'select-options'#}
+{#        }).insertAfter($styledSelect);#}
+{##}
+{#        for (var i = 0; i < numberOfOptions; i++) {#}
+{#            $('<li />', {#}
+{#                text: $this.children('option').eq(i).text(),#}
+{#                rel: $this.children('option').eq(i).val()#}
+{#            }).appendTo($list);#}
+{#        }#}
+{##}
+{#        var $listItems = $list.children('li');#}
+{##}
+{#        $styledSelect.click(function (e) {#}
+{#            e.stopPropagation();#}
+{#            $('div.select-styled.active').not(this).each(function () {#}
+{#                $(this).removeClass('active').next('ul.select-options').hide();#}
+{#            });#}
+{#            $(this).toggleClass('active').next('ul.select-options').toggle();#}
+{#        });#}
+{##}
+{#        $listItems.click(function (e) {#}
+{#            e.stopPropagation();#}
+{#            $styledSelect.text($(this).text()).removeClass('active');#}
+{#            $this.val($(this).attr('rel'));#}
+{#            $list.hide();#}
+{#            //console.log($this.val());#}
+{#        });#}
+{##}
+{#        $(document).click(function () {#}
+{#            $styledSelect.removeClass('active');#}
+{#            $list.hide();#}
+{#        });#}
+{##}
+{#    });#}
+{#</script>#}
+
 <script type="text/javascript">
     setTimeout(function () {
         $('#preloader').fadeOut();
@@ -69,36 +209,37 @@
     }
 </style>
 <script>
-     $("#button").click(function () {
-            $(".dropdown-menu").hide();
-        });
-     $("id_search_string").click(function () {
-            $(".dropdown-menu").show();
-        });
+    $("#button").click(function () {
+        $(".dropdown-menu").hide();
+    });
+    $("id_search_string").click(function () {
+        $(".dropdown-menu").show();
+    });
 
 </script>
 
 <script>
     $("#id_search_string").mouseout(function () {
-        var search_string = $(this).val();
-        var bubek = $(this).val().toLowerCase();
+        if ($(this).val().length != 0) {
+            var search_string = $(this).val();
+            var bubek = $(this).val().toLowerCase();
 
-        $.ajax({
-            url: 'ajax/validate_username',
-            data: {
-                'search_string': search_string
-            },
-            dataType: 'json',
-            success: function (data) {
-                if (data.is_group) {
-                    $("#schedule").load(bubek);
+            $.ajax({
+                url: 'ajax/validate_username',
+                data: {
+                    'search_string': search_string
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.is_group) {
+                        $("#schedule").load(bubek);
+                    }
+                    if (data.is_teacher) {
+                        $("#schedule").load('teacher/' + data.teacher_id);
+                    }
                 }
-                if (data.is_teacher) {
-                    $("#schedule").load('teacher/' + data.teacher_id);
-                }
-            }
-        });
-
+            });
+        }
     });
 </script>
 

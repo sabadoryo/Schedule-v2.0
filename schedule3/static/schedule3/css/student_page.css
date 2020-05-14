@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+
 .image {
     position: absolute;
     top: 50%;
@@ -9,6 +11,7 @@
     -moz-animation: spin 1s linear infinite;
     animation: spin 1s linear infinite;
 }
+
 @-moz-keyframes spin {
     100% {
         -moz-transform: rotate(360deg);
@@ -27,8 +30,9 @@
         transform: rotate(360deg);
     }
 }
-.logo{
-     position: relative;
+
+.logo {
+    position: relative;
     top: 1%;
     left: 43%;
 }
@@ -45,49 +49,179 @@
 }
 
 .search {
-  width: 100%;
-  position: relative;
-  display: inline-flex;
+    width: 100%;
+    position: relative;
+    display: inline-flex;
 }
 
 .searchTerm {
-  width: 100%;
-  border: 3px solid #00B4CC;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: black;
+    width: 100%;
+    border: 3px solid #00B4CC;
+    border-right: none;
+    padding: 5px;
+    height: 20px;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    color: black;
 }
 
-.searchTerm:focus{
-  color: black;
+.searchTerm:focus {
+    color: black;
 }
 
 .searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
+    width: 40px;
+    height: 36px;
+    border: 1px solid #00B4CC;
+    background: #00B4CC;
+    text-align: center;
+    color: #fff;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 20px;
 }
 
 /*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 30%;
-  position: relative;
-  top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.wrap {
+    width: 30%;
+    position: relative;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
+
 /*.schedule{*/
 /*    position: absolute;*/
 /*     width: 100%;*/
 /*    height: 100%;*/
 /*    top: 30%;*/
 /*}*/
+
+h1 {
+    font-weight: normal;
+    font-size: 40px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+h1 span {
+    font-size: 13px;
+    display: block;
+    padding-left: 4px;
+}
+
+p {
+    margin-top: 200px;
+}
+
+p a {
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    color: #fff;
+    padding: 5px 10px;
+    margin: 0 5px;
+    background-color: #b83729;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+p a:hover {
+    background-color: #ab3326;
+}
+
+.select-hidden {
+    display: none;
+    visibility: hidden;
+    padding-right: 10px;
+}
+
+.select {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    font-size: 16px;
+    color: #fff;
+    width: 300px;
+    height: 40px;
+}
+
+.select-styled {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #c0392b;
+    padding: 8px 15px;
+    -moz-transition: all 0.2s ease-in;
+    -o-transition: all 0.2s ease-in;
+    -webkit-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+}
+
+.select-styled:after {
+    content: "";
+    width: 0;
+    height: 0;
+    border: 7px solid transparent;
+    border-color: #fff transparent transparent transparent;
+    position: absolute;
+    top: 16px;
+    right: 10px;
+}
+
+.select-styled:hover {
+    background-color: #b83729;
+}
+
+.select-styled:active, .select-styled.active {
+    background-color: #ab3326;
+}
+
+.select-styled:active:after, .select-styled.active:after {
+    top: 9px;
+    border-color: transparent transparent #fff transparent;
+}
+
+.select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 999;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background-color: #ab3326;
+}
+.select-options li {
+  margin: 0;
+  padding: 12px 0;
+  text-indent: 15px;
+  border-top: 1px solid #962d22;
+  -moz-transition: all 0.15s ease-in;
+  -o-transition: all 0.15s ease-in;
+  -webkit-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+}
+.select-options li:hover {
+  color: #c0392b;
+  background: #fff;
+}
+.select-options li[rel="hide"] {
+  display: none;
+}
+
+.selectSearch{
+    padding-top: 12px;
+}
+
+.selects{
+    width : 187px;
+    height: 30px;
+    background-color: #ff0000b0;
+}

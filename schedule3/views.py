@@ -1,3 +1,6 @@
+import json
+
+import simplejson as simplejson
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -19,6 +22,16 @@ def search_autocomplete(request):
         return JsonResponse(json, safe=False)
     else:
         HttpResponse("No cookies")
+
+
+def selectOptionsParameters(request):
+    stop = request.GET.get('speciality', None)
+    course = request.GET.get('course', None)
+
+    groups = Groups.objects.filter(title__startswith=stop, course__exact=course).values_list('title')
+    showroom_list = list(groups.values('title', 'title'))
+
+    return HttpResponse(simplejson.dumps(showroom_list), content_type="application/json")
 
 
 def validate_username(request):
