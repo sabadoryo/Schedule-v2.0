@@ -22,16 +22,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '4=rpw3s9xg6y@$+zi^e(r#$n7211yv8=-9ls(=+zx6u&g3+_8s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', None)
-if DEBUG is None:
-    DEBUG = False
-else:
-    if 'true' == DEBUG.lower():
-        DEBUG = True
-    else:
-        DEBUG = False
+DEBUG = 'True'
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS=['7ede8b54.ngrok.io','127.0.0.1']
 
 # Application definition
 
@@ -43,6 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'schedule3.apps.Schedule3Config',
+    'django_tgbot',
+    'iitu_schedule_bot',
 ]
 
 MIDDLEWARE = [

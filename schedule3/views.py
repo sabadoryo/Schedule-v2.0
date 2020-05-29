@@ -11,6 +11,7 @@ from schedule3.models import TimeTable, Event, Teacher, Groups
 from schedule3.forms import *
 
 
+
 def search_autocomplete(request):
     if request.GET.get('q'):
         q = request.GET['q']
@@ -36,6 +37,7 @@ def selectOptionsParameters(request):
 
 def validate_username(request):
     search_string = request.GET.get('search_string', None)
+
     buk = False
     if Teacher.objects.filter(name=search_string).exists():
         teach_pk = Teacher.objects.get(name=search_string).pk
