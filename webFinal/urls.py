@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from iitu_schedule_bot import urls as iitu_schedule_bot_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('schedule3/', include('schedule3.urls')),
     path('', include("django.contrib.auth.urls")),
+    path('iitu_schedule_bot/', include(iitu_schedule_bot_urls)),
+
 ]
