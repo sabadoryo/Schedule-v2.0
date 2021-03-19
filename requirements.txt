@@ -8,7 +8,7 @@ Django==3.0.6
 django-heroku==0.3.1
 django-polls==0.1
 django-weekday-field==1.1.0
-djangorestframework==3.3.2
+djangorestframework==3.11.2
 future==0.18.2
 gunicorn==20.0.4
 idna==2.9
